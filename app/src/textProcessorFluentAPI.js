@@ -27,29 +27,37 @@ class TextProcessorFluentAPI {
     // i -> insensitive
 
     const matchPerson = evaluateRegex(
-      /(?<=[contratante|contratado]:\s{1})(?!\s)(.*\n*.*?)$/gim
+      /(?<=[contratante|contratada]:\s{1})(?!\s)(.*\n.*?)$/gim
     );
+
+    // faz o match para encontrar a string inteira que contem os dados que precisamos
     const onlyPerson = this.#content.match(matchPerson);
+    // console.log('onlyPerson', matchPerson.test(this.#content) )
     this.#content = onlyPerson;
+
     return this;
   }
-
-  build() {
-    return this.#content;
-  }
-
   divideTextInColumns() {
     const splitRegex = evaluateRegex(/,/);
     this.#content = this.#content.map((line) => line.split(splitRegex));
+
     return this;
   }
-
   removeEmptyCharacters() {
-    const trimString = evaluateRegex(/^\s+|\s+$|\n/g);
+    const trimSpaces = evaluateRegex(/^\s+|\s+$|\n/g);
     this.#content = this.#content.map((line) =>
-      line.map((item) => item.replace(trimString, ""))
+      line.map((item) => item.replace(trimSpaces, ""))
     );
+
     return this;
+  }
+  mapPerson() {
+    // passa o array de itens no construtor de pessoa
+    this.#content = this.#content.map((line) => new Person(line));
+    return this;
+  }
+  build() {
+    return this.#content;
   }
 }
 
