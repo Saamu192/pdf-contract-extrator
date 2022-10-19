@@ -1,5 +1,5 @@
 {
-  "name": "pdf-e-test-fluent",
+  "name": "regex-and-fluent-api",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,6 +9,7 @@
     "test:cov": "npx nyc npx mocha --parallel test/*.test.js"
   },
   "devDependencies": {
+    "safe-regex": "^2.1.1",
     "chai": "4",
     "mocha": "8",
     "nyc": "15"
